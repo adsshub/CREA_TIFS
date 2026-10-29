@@ -1,5 +1,8 @@
 <?php
 // PARAMS
+$title = "Design capill'Hair";
+$content = "";
+$header = "";
 
 // Paramètres de connexion à la DB
 define('DB_HOST', '127.0.0.1');
