@@ -13,7 +13,13 @@ Options +FollowSymlinks
 RewriteEngine on
 
 #-----------------------------------------------------------
+#ROUTES PINCIPALE
 
+# LISTE DES PROJETS
+# PATTERN: /projects      (page suivante : /projects?page=2)
+# RÉÉCRITE EN: index.php?projects=index
+# ACTION: indexAction
+RewriteRule ^projects/?$ index.php?projects=index [L,QSA]
 
 #-----------------------------------------------------------
 

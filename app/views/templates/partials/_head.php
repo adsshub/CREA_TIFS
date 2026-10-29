@@ -3,7 +3,7 @@
 <meta name="description" content="CREA'TIFS - portfolio capillaire" />
 
 <!-- Titre de la page : zone dynamique $title -->
-<title>CREA'TIFS - <?php echo $title; ?></title>
+<title><?php echo $title; ?></title>
 
 <!-- Bootstrap core CSS -->
 <link href="<?php echo BASE_URL; ?>vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
