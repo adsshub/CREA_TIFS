@@ -46,6 +46,9 @@ function findOneById(PDO $connexion, int $id): ?array
     return $rs->fetch(PDO::FETCH_ASSOC) ?: null;
 }
 
+/**
+ * Supprime un projet. Ses liens avec les tags doivent être supprimés 
+ */
 function deleteOneById(PDO $connexion, int $id): void
 {
     $sql = "DELETE 
@@ -61,6 +64,10 @@ function deleteOneById(PDO $connexion, int $id): void
     $rs->execute([':id' => $id]);
 }
 
+/**
+ * Ajoute un projet (date de création = maintenant) puis enregistre ses tags.
+ * Renvoie le numéro du nouveau projet.
+ */
 function insertOne(PDO $connexion, array $data): int
 {
     // 1. Requête d'insertion avec SET
@@ -90,6 +97,32 @@ function insertOne(PDO $connexion, array $data): int
     return $id;
 }
 
+/**
+ * Modifie un projet (la date de création ne change pas) puis remplace ses tags.
+ */
+function updateOneById(PDO $connexion, int $id, array $data): void
+{
+    $sql = "UPDATE projets
+            SET titre = :titre, resume = :resume, texte = :texte,
+                image = :image, creatif = :creatif
+            WHERE id = :id;";
+    $rs = $connexion->prepare($sql);
+    $rs->execute([
+        ':titre'   => $data['titre'],
+        ':resume'  => $data['resume'],
+        ':texte'   => $data['texte'],
+        ':image'   => $data['image'],
+        ':creatif' => $data['creatif'],
+        ':id'      => $id,
+    ]);
+
+    saveTags($connexion, $id, $data['tags']);
+}
+
+/**
+ * Remplace les tags d'un projet : les anciens liens sont effacés,
+ * puis ceux qui sont cochés sont recréés.
+ */
 function saveTags(PDO $connexion, int $projectId, array $tagIds): void
 {
     $sql = "DELETE 

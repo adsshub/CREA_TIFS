@@ -3,7 +3,7 @@
 
 <!-- Avec bandeau : le contenu le chevauche (classe du template).
      Sans bandeau : marges du template (haut 2.5rem, et 3rem avant le footer). -->
-<?php if (!$isform) : ?>
+<?php if ($header) : ?>
 <div class="container ct-content-wrap">
 <?php else : ?>
 <div class="container" style="margin-top: 2.5rem; margin-bottom: 3rem">

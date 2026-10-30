@@ -135,12 +135,33 @@ function editFormAction(PDO $connexion, string $id): void
 
     $formTitle = 'Modifier le projet';
 
-    global $title, $content, $isForm;
+    global $title, $content, $isform;
     $title = $formTitle . " — " . $title;
-    $isForm = true;
+    $isform = true;
     ob_start();
     include '../app/views/projects/form.php';
     $content = ob_get_clean();
+}
+
+/**
+ * Modifie le projet puis redirige vers l'accueil.
+ * Si aucune nouvelle image n'est envoyée, l'ancienne est conservée.
+ * PATTERN: /projects/id/slug/edit/update.html (méthode POST)
+ */
+function editUpdateAction(PDO $connexion, string $id, array $post): void
+{
+    include_once '../app/models/projectsModel.php';
+
+    $project = ProjectsModel\findOneById($connexion, $id);
+
+    // Nouvelle image si elle est envoyée, sinon l'ancienne est conservée
+    $data = readForm($post);
+    $data['image'] = uploadImage() ?? $project['image'];
+    ProjectsModel\updateOneById($connexion, $id, $data);
+
+    // Redirection vers la page d'accueil
+    header('Location: ' . BASE_URL);
+    exit;
 }
 
 /* ---------- FONCTIONS INTERNES (pas des routes) ---------- */

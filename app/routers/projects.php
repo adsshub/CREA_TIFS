@@ -48,6 +48,14 @@ switch ($_GET['projects']):
         ProjectsController\editFormAction($connexion, $_GET['id']);
         break;
 
+    // MODIFICATION : ENREGISTREMENT (puis redirection vers l'accueil)
+    // PATTERN: /projects/id/slug/edit/update.html   (méthode POST)
+    // CTRL: ProjectsController
+    // ACTION: editUpdateAction
+    case 'editUpdate':
+        ProjectsController\editUpdateAction($connexion, $_GET['id'], $_POST);
+        break;
+
 // ROUTE PAR DÉFAUT : LISTE DES PROJETS
     // PATTERN: /projects      (page suivante : /projects?page=2)
     // CTRL: ProjectsController
