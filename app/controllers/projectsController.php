@@ -85,3 +85,43 @@ function addFormAction(PDO $connexion): void
     include '../app/views/projects/form.php';
     $content = ob_get_clean();
 }
+
+function addInsertAction(PDO $connexion, array $post): void
+{
+    include_once '../app/models/projectsModel.php';
+
+    $data = readForm($post);
+    $data['image'] = uploadImage();
+    ProjectsModel\insertOne($connexion, $data);
+
+    // Redirection vers la page d'accueil
+    header('Location: ' . BASE_URL);
+    exit;
+}
+
+/* ---------- FONCTIONS INTERNES (pas des routes) ---------- */
+
+function readForm(array $post): array
+{
+    return [
+        'titre'   => $post['title'],
+        'resume'  => $post['resume'],
+        'texte'   => $post['text'],
+        'creatif' => (int) $post['category_id'],
+        'tags'    => array_map('intval', $post['tags'] ?? []),   // numéros des tags cochés
+    ];
+}
+
+function uploadImage(): ?string
+{
+    if ($_FILES['image']['error'] !== UPLOAD_ERR_OK) {
+        return null;
+    }
+
+    $extension = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+    $filename = uniqid() . '.' . $extension;
+
+    move_uploaded_file($_FILES['image']['tmp_name'], 'images/' . $filename);
+
+    return $filename;
+}

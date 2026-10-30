@@ -32,6 +32,14 @@ switch ($_GET['projects']):
         ProjectsController\addFormAction($connexion);
         break;
 
+    // AJOUT : ENREGISTREMENT (puis redirection vers l'accueil)
+    // PATTERN: /projects/add/insert.html   (méthode POST)
+    // CTRL: ProjectsController
+    // ACTION: addInsertAction
+    case 'addInsert':
+        ProjectsController\addInsertAction($connexion, $_POST);
+        break;
+
 // ROUTE PAR DÉFAUT : LISTE DES PROJETS
     // PATTERN: /projects      (page suivante : /projects?page=2)
     // CTRL: ProjectsController

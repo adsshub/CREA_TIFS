@@ -1,5 +1,5 @@
 <!-- Détail d'un projet (variables : $project, $projectTags) -->
-<section>
+<div class="col-lg-8">
     <?php $slug = Core\Helpers\slugify($project['titre']); ?>
     <h1><?php echo $project['titre']; ?></h1>
     <p class="ct-byline">
@@ -35,4 +35,4 @@
             </div>
         </div>
     </article>
-</section>
+</div>

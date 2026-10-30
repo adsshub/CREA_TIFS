@@ -31,6 +31,12 @@ RewriteRule ^projects/?$ index.php?projects=index [L,QSA]
 # ACTION: addFormAction
 RewriteRule ^projects/add/form\.html$ index.php?projects=addForm [L]
 
+# AJOUT : ENREGISTREMENT (méthode POST)
+# PATTERN: /projects/add/insert.html
+# RÉÉCRITE EN: index.php?projects=addInsert
+# ACTION: addInsertAction
+RewriteRule ^projects/add/insert\.html$ index.php?projects=addInsert [L]
+
 # SUPPRESSION D'UN PROJET
 # PATTERN: /projects/delete/id/slug.html
 # RÉÉCRITE EN: index.php?projects=delete&id=x
