@@ -33,3 +33,15 @@ function findAll(PDO $connexion, int $limit, int $offset): array
     $rs->execute();
     return $rs->fetchAll(PDO::FETCH_ASSOC);
 }
+
+function findOneById(PDO $connexion, int $id): ?array
+{
+    $sql = "SELECT p.*, c.pseudo AS creatif_pseudo
+            FROM projets p
+            JOIN creatifs c ON p.creatif = c.id
+            WHERE p.id = :id;";
+    $rs = $connexion->prepare($sql);
+    $rs->bindValue(':id', $id, PDO::PARAM_INT);
+    $rs->execute();
+    return $rs->fetch(PDO::FETCH_ASSOC) ?: null;
+}

@@ -4,6 +4,7 @@ namespace App\Controllers\ProjectsController;
 
 use \PDO;
 use \App\Models\ProjectsModel;
+use \App\Models\TagsModel;
 
 function indexAction(PDO $connexion): void
 {
@@ -29,5 +30,21 @@ function indexAction(PDO $connexion): void
     // 2. Je charge projects.index dans $content
     ob_start();
     include '../app/views/projects/index.php';
+    $content = ob_get_clean();
+}
+
+function showAction(PDO $connexion, int $id): void
+{
+    include_once '../app/models/projectsModel.php';
+    include_once '../app/models/tagsModel.php';
+
+    // On force l'ID en entier pour correspondre au modèle
+    $project = ProjectsModel\findOneById($connexion, $id);
+    $projectTags = TagsModel\findByProjectId($connexion, $id);
+
+    global $title, $content;
+    $title = $project['titre'] . " — " . $title;
+    ob_start();
+    include '../app/views/projects/show.php';
     $content = ob_get_clean();
 }

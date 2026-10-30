@@ -25,4 +25,10 @@ RewriteRule ^projects/?$ index.php?projects=index [L,QSA]
 
 #ROUTES
 
+# DÉTAIL D'UN PROJET (en dernier : c'est le pattern le plus général)
+# PATTERN: /projects/id/slug.html
+# RÉÉCRITE EN: index.php?projects=show&id=x
+# ACTION: showAction
+RewriteRule ^projects/([0-9]+)/([^/]+)\.html$ index.php?projects=show&id=$1 [L]
+
 #-----------------------------------------------------------
