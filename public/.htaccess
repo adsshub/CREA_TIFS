@@ -25,6 +25,12 @@ RewriteRule ^projects/?$ index.php?projects=index [L,QSA]
 
 #ROUTES
 
+# SUPPRESSION D'UN PROJET
+# PATTERN: /projects/delete/id/slug.html
+# RÉÉCRITE EN: index.php?projects=delete&id=x
+# ACTION: deleteAction
+RewriteRule ^projects/delete/([0-9]+)/([^/]+)\.html$ index.php?projects=delete&id=$1 [L]
+
 # DÉTAIL D'UN PROJET (en dernier : c'est le pattern le plus général)
 # PATTERN: /projects/id/slug.html
 # RÉÉCRITE EN: index.php?projects=show&id=x

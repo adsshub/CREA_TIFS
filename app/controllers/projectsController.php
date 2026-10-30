@@ -48,3 +48,14 @@ function showAction(PDO $connexion, int $id): void
     include '../app/views/projects/show.php';
     $content = ob_get_clean();
 }
+
+function deleteAction(PDO $connexion, int $id): void
+{
+    include_once '../app/models/projectsModel.php';
+
+    ProjectsModel\deleteOneById($connexion, $id);
+
+    // Redirection vers la page d'accueil
+    header('Location: ' . BASE_URL);
+    exit;
+}

@@ -45,3 +45,18 @@ function findOneById(PDO $connexion, int $id): ?array
     $rs->execute();
     return $rs->fetch(PDO::FETCH_ASSOC) ?: null;
 }
+
+function deleteOneById(PDO $connexion, int $id): void
+{
+    $sql = "DELETE 
+            FROM projets_has_tags 
+            WHERE projet = :id;";
+    $rs = $connexion->prepare($sql);
+    $rs->execute([':id' => $id]);
+
+    $sql = "DELETE 
+            FROM projets 
+            WHERE id = :id;";
+    $rs = $connexion->prepare($sql);
+    $rs->execute([':id' => $id]);
+}
