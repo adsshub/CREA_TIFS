@@ -43,6 +43,12 @@ RewriteRule ^projects/add/insert\.html$ index.php?projects=addInsert [L]
 # ACTION: deleteAction
 RewriteRule ^projects/delete/([0-9]+)/([^/]+)\.html$ index.php?projects=delete&id=$1 [L]
 
+# MODIFICATION : FORMULAIRE
+# PATTERN: /projects/id/slug/edit/form.html
+# RÉÉCRITE EN: index.php?projects=editForm&id=x
+# ACTION: editFormAction
+RewriteRule ^projects/([0-9]+)/([^/]+)/edit/form\.html$ index.php?projects=editForm&id=$1 [L]
+
 # DÉTAIL D'UN PROJET (en dernier : c'est le pattern le plus général)
 # PATTERN: /projects/id/slug.html
 # RÉÉCRITE EN: index.php?projects=show&id=x

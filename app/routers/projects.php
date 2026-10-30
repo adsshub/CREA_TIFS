@@ -40,6 +40,14 @@ switch ($_GET['projects']):
         ProjectsController\addInsertAction($connexion, $_POST);
         break;
 
+    // MODIFICATION : FORMULAIRE
+    // PATTERN: /projects/id/slug/edit/form.html
+    // CTRL: ProjectsController
+    // ACTION: editFormAction
+    case 'editForm':
+        ProjectsController\editFormAction($connexion, $_GET['id']);
+        break;
+
 // ROUTE PAR DÉFAUT : LISTE DES PROJETS
     // PATTERN: /projects      (page suivante : /projects?page=2)
     // CTRL: ProjectsController

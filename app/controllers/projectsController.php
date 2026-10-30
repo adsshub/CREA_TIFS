@@ -50,6 +50,10 @@ function showAction(PDO $connexion, int $id): void
     $content = ob_get_clean();
 }
 
+/**
+ * Supprime le projet puis redirige vers l'accueil.
+ * PATTERN: /projects/delete/id/slug.html
+ */
 function deleteAction(PDO $connexion, int $id): void
 {
     include_once '../app/models/projectsModel.php';
@@ -61,6 +65,10 @@ function deleteAction(PDO $connexion, int $id): void
     exit;
 }
 
+/**
+ * Formulaire d'ajout, avec les champs vides.
+ * PATTERN: /projects/add/form.html
+ */
 function addFormAction(PDO $connexion): void
 {
     include_once '../app/models/creatifsModel.php';
@@ -86,6 +94,10 @@ function addFormAction(PDO $connexion): void
     $content = ob_get_clean();
 }
 
+/**
+ * Ajoute le projet dans la base puis redirige vers l'accueil.
+ * PATTERN: /projects/add/insert.html (méthode POST)
+ */
 function addInsertAction(PDO $connexion, array $post): void
 {
     include_once '../app/models/projectsModel.php';
@@ -97,6 +109,38 @@ function addInsertAction(PDO $connexion, array $post): void
     // Redirection vers la page d'accueil
     header('Location: ' . BASE_URL);
     exit;
+}
+
+/**
+ * Formulaire de modification, avec les champs remplis par le projet.
+ * PATTERN: /projects/id/slug/edit/form.html
+ */
+function editFormAction(PDO $connexion, string $id): void
+{
+    include_once '../app/models/projectsModel.php';
+    include_once '../app/models/creatifsModel.php';
+    include_once '../app/models/tagsModel.php';
+
+    // Projet à modifier, pour remplir les champs du formulaire
+    $project = ProjectsModel\findOneById($connexion, $id);
+
+    // Numéros des tags déjà cochés
+    $projectTagIds = array_column(TagsModel\findByProjectId($connexion, $id), 'id');
+
+    // Créa'tifs (liste déroulante) et tags (cases à cocher) du formulaire
+    $creatifs = CreatifsModel\findAll($connexion);
+    $tags = TagsModel\findAll($connexion);
+
+    $formAction = BASE_URL . 'projects/' . $id . '/' . \Core\Helpers\slugify($project['titre']) . '/edit/update.html';
+
+    $formTitle = 'Modifier le projet';
+
+    global $title, $content, $isForm;
+    $title = $formTitle . " — " . $title;
+    $isForm = true;
+    ob_start();
+    include '../app/views/projects/form.php';
+    $content = ob_get_clean();
 }
 
 /* ---------- FONCTIONS INTERNES (pas des routes) ---------- */
