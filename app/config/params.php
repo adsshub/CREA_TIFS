@@ -2,6 +2,7 @@
 // PARAMS
 $title = "CREA'TIFS";
 $content = "";
+$isform = false;
 $header = "";
 
 // Paramètres de connexion à la DB

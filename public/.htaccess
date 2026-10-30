@@ -25,6 +25,12 @@ RewriteRule ^projects/?$ index.php?projects=index [L,QSA]
 
 #ROUTES
 
+# AJOUT : FORMULAIRE
+# PATTERN: /projects/add/form.html
+# RÉÉCRITE EN: index.php?projects=addForm
+# ACTION: addFormAction
+RewriteRule ^projects/add/form\.html$ index.php?projects=addForm [L]
+
 # SUPPRESSION D'UN PROJET
 # PATTERN: /projects/delete/id/slug.html
 # RÉÉCRITE EN: index.php?projects=delete&id=x

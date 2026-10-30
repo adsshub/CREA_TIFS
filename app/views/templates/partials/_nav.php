@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top ct-navbar">
       <div class="container">
-        <a class="navbar-brand" href="index.html">
+        <a class="navbar-brand" href="<?php echo BASE_URL; ?>projects">
           <svg class="ct-scissors" viewBox="0 0 24 24" aria-hidden="true">
             <circle cx="6" cy="6" r="2.6"></circle>
             <circle cx="6" cy="18" r="2.6"></circle>
@@ -21,22 +21,27 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto align-items-lg-center">
-            <li class="nav-item active">
-              <a class="nav-link" href="index.html">Les projets</a>
-            </li>
-            <li class="nav-item">
-              <a class="ct-btn ct-btn--primary ct-btn--sm" href="form.html">
-                <svg class="ct-scissors" style="width:16px;height:16px" viewBox="0 0 24 24" aria-hidden="true">
-                  <circle cx="6" cy="6" r="2.6"></circle>
-                  <circle cx="6" cy="18" r="2.6"></circle>
-                  <line x1="20" y1="3" x2="8" y2="15.5"></line>
-                  <line x1="8" y1="8.5" x2="20" y2="21"></line>
-                </svg>
-                Nouveau projet
-              </a>
-            </li>
-          </ul>
+            <ul class="navbar-nav ml-auto align-items-lg-center">
+                <li class="nav-item<?php echo $isform ? '' : ' active'; ?>">
+                    <!-- PATTERN: /projects -->
+                    <a class="nav-link" href="<?php echo BASE_URL; ?>projects">Les projets</a>
+                </li>
+                <!-- Le bouton n'existe pas sur les pages de formulaire (comme dans le template) -->
+                <?php if (!$isform) : ?>
+                <li class="nav-item">
+                    <!-- PATTERN: /projects/add/form.html -->
+                    <a class="ct-btn ct-btn--primary ct-btn--sm" href="<?php echo BASE_URL; ?>projects/add/form.html">
+                        <svg class="ct-scissors" style="width:16px;height:16px" viewBox="0 0 24 24" aria-hidden="true">
+                            <circle cx="6" cy="6" r="2.6"></circle>
+                            <circle cx="6" cy="18" r="2.6"></circle>
+                            <line x1="20" y1="3" x2="8" y2="15.5"></line>
+                            <line x1="8" y1="8.5" x2="20" y2="21"></line>
+                        </svg>
+                        Nouveau projet
+                    </a>
+                </li>
+                <?php endif; ?>
+            </ul>
         </div>
       </div>
     </nav>

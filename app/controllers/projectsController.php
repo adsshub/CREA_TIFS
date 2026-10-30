@@ -5,6 +5,7 @@ namespace App\Controllers\ProjectsController;
 use \PDO;
 use \App\Models\ProjectsModel;
 use \App\Models\TagsModel;
+use \App\Models\CreatifsModel;
 
 function indexAction(PDO $connexion): void
 {
@@ -58,4 +59,29 @@ function deleteAction(PDO $connexion, int $id): void
     // Redirection vers la page d'accueil
     header('Location: ' . BASE_URL);
     exit;
+}
+
+function addFormAction(PDO $connexion): void
+{
+    include_once '../app/models/creatifsModel.php';
+    include_once '../app/models/tagsModel.php';
+
+    
+    $project = ['titre' => '', 'resume' => '', 'texte' => '', 'creatif' => 0];
+    $projectTagIds = [];
+
+    // Créa'tifs (liste déroulante) et tags (cases à cocher) du formulaire
+    $creatifs = CreatifsModel\findAll($connexion);
+    $tags = TagsModel\findAll($connexion);
+
+    $formAction = BASE_URL . 'projects/add/insert.html';
+
+    $formTitle = 'Ajouter un projet';
+
+    global $title, $content, $isform;
+    $title = $formTitle . " — " . $title;
+    $isform = true;
+    ob_start();
+    include '../app/views/projects/form.php';
+    $content = ob_get_clean();
 }

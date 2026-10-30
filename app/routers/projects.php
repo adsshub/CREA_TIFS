@@ -24,6 +24,14 @@ switch ($_GET['projects']):
         ProjectsController\deleteAction($connexion, $_GET['id']);
         break;
 
+    // AJOUT : FORMULAIRE
+    // PATTERN: /projects/add/form.html
+    // CTRL: ProjectsController
+    // ACTION: addFormAction
+    case 'addForm':
+        ProjectsController\addFormAction($connexion);
+        break;
+
 // ROUTE PAR DÉFAUT : LISTE DES PROJETS
     // PATTERN: /projects      (page suivante : /projects?page=2)
     // CTRL: ProjectsController
