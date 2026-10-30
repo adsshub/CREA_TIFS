@@ -11,6 +11,9 @@
         </div>
 
         <!-- ASIDE : créa'tifs + tags, identique sur toutes les pages -->
+         <!-- Colonne latérale -->
+        <div class="col-lg-4">
             <?php include '../app/views/templates/partials/_aside.php'; ?>
+        </div>
     </div>
 </div>
